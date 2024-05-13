@@ -1,0 +1,108 @@
+/*
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persona Fórum</title>
+<style>
+
+ @font-face {
+  font-family: 'Earwig';
+  src: url("earwig_factory_rg.otf") format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'p5';
+  src: url('p5hatty.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+} 
+form{
+    font-family: 'Earwig';
+}
+    body {
+    background-image: url(persona-5-background-9px8bnf59cr6u8ee.png);
+    background-size: cover;
+    background-position: center;
+    color:aliceblue;
+    
+    
+}
+    h1 { 
+        text-align: center;
+        font-family: 'Earwig';
+        font-size: 80px;
+
+    }
+
+    h2 {
+        font-family: 'Earwig';
+        font-size: 45px;
+    }
+
+   
+</style>
+</head>
+<body>
+
+<div class="forum-container">
+    <h1>Persona Forum</h1>
+    <hr>
+    <h2>Novo Topico</h2>
+    <form id="new-thread-form">
+        <textarea name="new-thread" id="new-thread" cols="50" rows="5"></textarea><br>
+        <input type="submit" value="Abrir Tópico">
+    </form>
+    <hr>
+    <h2>Topicos</h2>
+    <ul id="threads-list">
+        <!-- Tópicos aqui -->
+    </ul>
+</div>
+
+<script>
+    document.getElementById("new-thread-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var newThreadText = document.getElementById("new-thread").value.trim();
+        if (newThreadText !== "") {
+            var threadListItem = document.createElement("li");
+            threadListItem.textContent = newThreadText;
+            
+            var commentsList = document.createElement("ul");
+            commentsList.classList.add("comments-list");
+            threadListItem.appendChild(commentsList);
+
+            var commentTextarea = document.createElement("textarea");
+            commentTextarea.classList.add("comment-textarea");
+            commentTextarea.cols = 50;
+            commentTextarea.rows = 3;
+            threadListItem.appendChild(commentTextarea);
+
+            var commentButton = document.createElement("button");
+            commentButton.classList.add("comment-button");
+            commentButton.textContent = "Comentar";
+            commentButton.onclick = function() {
+                var commentText = commentTextarea.value.trim();
+                if (commentText !== "") {
+                    var commentListItem = document.createElement("li");
+                    commentListItem.textContent = commentText;
+                    commentsList.appendChild(commentListItem);
+                    commentTextarea.value = "";
+                }
+            };
+            threadListItem.appendChild(commentButton);
+
+            document.getElementById("threads-list").appendChild(threadListItem);
+
+            document.getElementById("new-thread").value = "";
+        }
+    });
+</script>
+
+</body>
+</html>
+
+
