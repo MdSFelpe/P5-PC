@@ -1,4 +1,3 @@
-/*
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,11 +23,10 @@ form{
     font-family: 'Earwig';
 }
     body {
-    background-image: url(persona-5-background-9px8bnf59cr6u8ee.png);
+    background-image: url(https://cdn.discordapp.com/attachments/1152059439445192735/1220145664370020412/persona-5-background-9px8bnf59cr6u8ee.png?ex=662f7e73&is=662e2cf3&hm=419106518cf1892cf00c9b72e5dd6cbb9583723a7e3c57ad6a127400f5a72ec0&);
     background-size: cover;
     background-position: center;
     color:aliceblue;
-    
     
 }
     h1 { 
@@ -42,7 +40,16 @@ form{
         font-family: 'Earwig';
         font-size: 45px;
     }
+    
+    button { 
+             background-color:red;
+             width: 100px;
+             font-size: 10px;
+             margin-left: 10px;
+             
+             
 
+    }
    
 </style>
 </head>
@@ -69,8 +76,30 @@ form{
         var newThreadText = document.getElementById("new-thread").value.trim();
         if (newThreadText !== "") {
             var threadListItem = document.createElement("li");
-            threadListItem.textContent = newThreadText;
             
+            var threadTextSpan = document.createElement("span");
+            threadTextSpan.textContent = newThreadText;
+            threadListItem.appendChild(threadTextSpan);
+            
+            var editThreadButton = document.createElement("button");
+            editThreadButton.textContent = "Editar";
+            editThreadButton.onclick = function() {
+                var newText = prompt("Edite seu tópico:", threadTextSpan.textContent);
+                if (newText !== null) {
+                    threadTextSpan.textContent = newText;
+                }
+            };
+            threadListItem.appendChild(editThreadButton);
+
+            var deleteThreadButton = document.createElement("button");
+            deleteThreadButton.textContent = "Excluir";
+            deleteThreadButton.onclick = function() {
+                if (confirm("Tem certeza que deseja excluir este tópico?")) {
+                    threadListItem.remove();
+                }
+            };
+            threadListItem.appendChild(deleteThreadButton);
+
             var commentsList = document.createElement("ul");
             commentsList.classList.add("comments-list");
             threadListItem.appendChild(commentsList);
@@ -88,7 +117,30 @@ form{
                 var commentText = commentTextarea.value.trim();
                 if (commentText !== "") {
                     var commentListItem = document.createElement("li");
-                    commentListItem.textContent = commentText;
+                    
+                    var commentTextSpan = document.createElement("span");
+                    commentTextSpan.textContent = commentText;
+                    commentListItem.appendChild(commentTextSpan);
+
+                    var editCommentButton = document.createElement("button");
+                    editCommentButton.textContent = "Editar";
+                    editCommentButton.onclick = function() {
+                        var newText = prompt("Edite seu comentário:", commentTextSpan.textContent);
+                        if (newText !== null) {
+                            commentTextSpan.textContent = newText;
+                        }
+                    };
+                    commentListItem.appendChild(editCommentButton);
+
+                    var deleteCommentButton = document.createElement("button");
+                    deleteCommentButton.textContent = "Excluir";
+                    deleteCommentButton.onclick = function() {
+                        if (confirm("Tem certeza que deseja excluir este comentário?")) {
+                            commentListItem.remove();
+                        }
+                    };
+                    commentListItem.appendChild(deleteCommentButton);
+
                     commentsList.appendChild(commentListItem);
                     commentTextarea.value = "";
                 }
@@ -104,5 +156,3 @@ form{
 
 </body>
 </html>
-
-
