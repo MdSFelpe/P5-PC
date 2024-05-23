@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static',     filename='CSS/forum PR.css') }}">
+<title>Persona Fórum</title>
+
+</head>
+<body>
+
+<div class="forum-container">
+    <h1>Persona Forum</h1>
+    <hr>
+    <h2>Novo Topico</h2>
+    <form id="new-thread-form">
+        <textarea name="new-thread" id="new-thread" cols="50" rows="5"></textarea><br>
+        <input type="submit" value="Abrir Tópico">
+    </form>
+    <hr>
+    <h2>Topicos</h2>
+    <ul id="threads-list">
+        <!-- Tópicos aqui -->
+    </ul>
+</div>
+
+<script src="{{ url_for('static',     filename='JS/Forum PR.js') }}"> </script>
+
+</body>
+</html>
