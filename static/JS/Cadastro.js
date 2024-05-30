@@ -1,94 +1,83 @@
-const form =document.getElementById("form");
-const nome =document.getElementById("Nome");
-const  email =document.getElementById("email");
-const  senha =document.getElementById("senha");
-const  rsenha =document.getElementById("rsenha");
-const idade =document.getElementById("idade");
-form.addEventListener ('submit', (event)=> {
-    event.preventDefault();
-    CheckForm();
-  
-})
-function checkIdade(){
-    if (idade.value === "" ){
-        inputErro (idade , "preencha uma data")
+const form = document.getElementById("form");
+const nome = document.getElementById("Nome");
+const email = document.getElementById("email");
+const senha = document.getElementById("senha");
+const rsenha = document.getElementById("rsenha");
+const idade = document.getElementById("idade");
 
-    }
-    else{
+form.addEventListener('submit', (event) => {
+    checkForm();
+});
+
+function checkIdade() {
+    if (idade.value === "") {
+        inputErro(idade, "Preencha uma data");
+    } else {
         const item = idade.parentElement;
-        item.className= "cont";
+        item.className = "cont";
     }
 }
-function checkNome(){
-    
-    if (nome.value === "" ){
-        inputErro (nome , "preencha um nome")
 
-    }
-    else{
+function checkNome() {
+    if (nome.value === "") {
+        inputErro(nome, "Preencha um nome");
+    } else {
         const item = nome.parentElement;
-        item.className= "cont";
+        item.className = "cont";
     }
 }
-function checkEmail(){
-    if (email.value === "" ){
-        inputErro (email , "preencha um email")
 
-    }
-    else{
+function checkEmail() {
+    if (email.value === "") {
+        inputErro(email, "Preencha um email");
+    } else {
         const item = email.parentElement;
         item.className = "cont";
     }
 }
-function Checksenha(){
-    if (senha.value === "" ){
-        inputErro (senha , "senha obrigatória")
 
-    }
-    else{
+function checkSenha() {
+    if (senha.value === "") {
+        inputErro(senha, "Senha obrigatória");
+    } else {
         const item = senha.parentElement;
         item.className = "cont";
     }
 }
-function Checkrsenha(){
-    const valorSenha = senha.value;
-    const valorSenhaConfirmação =rsenha.value;
-    if (valorSenhaConfirmação === "" ){
-        inputErro (rsenha , "obrigatório confirmar senha")
 
-    }
-    else if (valorSenhaConfirmação != valorSenha){
-        inputErro (rsenha , "as senhas não são iguais")
-    }
-    else{
+function checkRsenha() {
+    const valorSenha = senha.value;
+    const valorSenhaConfirmacao = rsenha.value;
+    if (valorSenhaConfirmacao === "") {
+        inputErro(rsenha, "Obrigatório confirmar senha");
+    } else if (valorSenhaConfirmacao !== valorSenha) {
+        inputErro(rsenha, "As senhas não são iguais");
+    } else {
         const item = rsenha.parentElement;
         item.className = "cont";
     }
 }
 
-function CheckForm(){
+function checkForm() {
     checkNome();
     checkEmail();
-    Checksenha();
-    Checkrsenha();
+    checkSenha();
+    checkRsenha();
     checkIdade();
-    const item = form.querySelectorAll(".cont")
+    const items = form.querySelectorAll(".cont");
 
-    const valido = [... item].every((item)=> { 
-        return item.className === "cont"
-    })
+    const valido = [...items].every((item) => {
+        return item.className === "cont";
+    });
+
     if (valido) {
-        alert('Cadastrado com sucesso')
         form.submit();
-        window.location.href ="http://127.0.0.1:5000/Login"
     }
-
 }
 
-
-function inputErro(input, msg){
+function inputErro(input, msg) {
     const item = input.parentElement;
-    const texto = item.querySelector("a")
+    const texto = item.querySelector("a.erro-msg");
 
     texto.innerText = msg;
     item.className = "cont erro";

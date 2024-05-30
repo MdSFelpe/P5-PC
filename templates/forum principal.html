@@ -3,28 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{{ url_for('static',     filename='CSS/forum PR.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='CSS/forum PR.css') }}">
 <title>Persona Fórum</title>
-
 </head>
 <body>
 
 <div class="forum-container">
     <h1>Persona Forum</h1>
-    <hr>
-    <h2>Novo Topico</h2>
-    <form id="new-thread-form">
-        <textarea name="new-thread" id="new-thread" cols="50" rows="5"></textarea><br>
-        <input type="submit" value="Abrir Tópico">
+    <form action="{{ url_for('adicionar_topico') }}" method="post">
+        <h2>Adicionar Novo Tópico</h2>
+        <input type="text" id="novo-topico" name="novo_topico" required>
+        <button type="submit">Adicionar</button>
     </form>
-    <hr>
-    <h2>Topicos</h2>
-    <ul id="threads-list">
-        <!-- Tópicos aqui -->
+    <ul id="lista-topicos">
+        {% for topico in topicos %}
+        <li>
+            <span>{{ topico.texto }}</span>
+            <ul class="lista-comentarios">
+                {% for comentario in topico.comentarios %}
+                <li>
+                    <span>{{ comentario.texto }}</span>
+                    <form action="{{ url_for('editar_comentario', topico_id=topico.id, comentario_id=comentario.id) }}" method="post">
+                        <input type="text" name="novo_texto" placeholder="Novo texto">
+                        <button type="submit">Editar</button>
+                    </form>
+                    <form action="{{ url_for('excluir_comentario', topico_id=topico.id, comentario_id=comentario.id) }}" method="post" onclick="return confirm('Tem certeza que deseja excluir este comentário?');">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+            <form action="{{ url_for('adicionar_comentario', topico_id=topico.id) }}" method="post">
+                <textarea name="novo_comentario" required></textarea>
+                <button type="submit">Comentar</button>
+            </form>
+        </li>
+        {% endfor %}
     </ul>
 </div>
-
-<script src="{{ url_for('static',     filename='JS/Forum PR.js') }}"> </script>
 
 </body>
 </html>
